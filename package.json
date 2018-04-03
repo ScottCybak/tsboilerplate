@@ -1,6 +1,6 @@
 {
   "name": "tsboilerplate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A typescript boilerplate, with lite-server, webpack and sass",
   "main": "dist/app.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "author": "Scott Cybak <scott.cybak@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "@types/es6-shim": "^0.31.36",
     "html-loader": "^0.5.5",
     "lite-server": "^2.3.0",
     "ts-loader": "^4.1.0",
