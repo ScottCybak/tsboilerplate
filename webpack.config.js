@@ -12,7 +12,7 @@ module.exports = {
         exclude: /node_modules/
 	  },
 	  {
-		test: /\.html$/,
+		test: /\.(html|css)$/,
 		exclude: '/node_modules/',
 		use: 'html-loader?exportAsEs6Default'
 	}
