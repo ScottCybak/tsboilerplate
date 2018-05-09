@@ -1,5 +1,10 @@
 import { Observable } from 'rxjs/Observable';
 
+export interface HttpPayload {
+	[key: string]: string | number | boolean;
+	[key: number]: string | number | boolean;
+}
+
 export type HttpRequestType = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 export class HttpService {
@@ -20,15 +25,17 @@ export class HttpService {
 		return this.request('GET', path);
 	}
 
-	public post(path: string) {
-		return this.request('POST', path);
+	public post<T>(path: string, obj?: any) {
+		return this.request('POST', path, obj);
 	}
 
-	public request<T>(method: HttpRequestType, path: string): Observable<T> {
+	public request<T>(method: HttpRequestType, path: string, payload?: HttpPayload | FormData): Observable<T> {
 
 		return new Observable((obs) => {
 			
 			const headers = HttpService.headers;
+			let form = payload && payload instanceof FormData ? payload : '';
+
 			path = HttpService.basePath + path;
 			
 			const req = new XMLHttpRequest();
@@ -54,7 +61,17 @@ export class HttpService {
 					req.setRequestHeader(key, headers.get(key))
 				});
 
-			req.send(); // don't forget to stringify any outgoing data.. it..
+			if (payload && !form) {
+				try { 
+					form = JSON.stringify(payload);
+				} catch (err) {
+					console.warn('error\n', form);
+					obs.error(`error_payload_prep`);
+					return;
+				}
+			}
+
+			req.send(form);
 
 		});
 

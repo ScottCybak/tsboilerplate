@@ -7,7 +7,7 @@ import { HttpService } from '../lib/Http.service';
 
 
 // gibberish.. 
-HttpService.basePath = 'https://jsonplaceholder.typicode.com/';
+HttpService.basePath = 'https://httpbin.org/';
 HttpService.headers.set('foo', 'bar'); // gibberish to illustrate
 
 // test some cookie junk
@@ -23,15 +23,15 @@ class Testing {
 		console.log(`this has been loaded ${count} times`);
 		_cookie.set('load-count', '' + (++count))
 
-		_http.get('users')
-			.subscribe(
-				resp => {
-					console.log('good', resp);
-				},
-				err => {
-					console.warn('boo', err);
-				}
-			)
+		_http.get('get').subscribe(
+			resp => console.log('get::good', resp),
+			err => console.warn('get::bad', err)
+		);
+
+		_http.post('post', {foo: 'bar', test: new Date()}).subscribe(
+			resp => console.log('post::good', resp),
+			err => console.warn('post::bad', err)
+		);
 	}
 }
 
