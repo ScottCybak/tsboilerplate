@@ -2,14 +2,36 @@ import testHtml from './test.html';
 import testCss from './test.css';
 import testJson from './test.json';
 
-import { AuthService } from '../lib/Auth.service';
-import { Injector } from '../lib/core';
+import { CookieService } from '../lib/Cookie.service';
+import { HttpService } from '../lib/Http.service';
+
+
+// gibberish.. 
+HttpService.basePath = 'https://jsonplaceholder.typicode.com/';
+HttpService.headers.set('foo', 'bar'); // gibberish to illustrate
+
+// test some cookie junk
 
 class Testing {
 	constructor(
-		private _auth = Injector.resolve<AuthService>(AuthService)
+		private _http = HttpService.instance,
+		private _cookie = CookieService.instance
 	) {
-		console.log('auth->', _auth.valid);
+
+		// test out our cookie service.. 
+		let count = +(_cookie.get('load-count') || 0);
+		console.log(`this has been loaded ${count} times`);
+		_cookie.set('load-count', '' + (++count))
+
+		_http.get('users')
+			.subscribe(
+				resp => {
+					console.log('good', resp);
+				},
+				err => {
+					console.warn('boo', err);
+				}
+			)
 	}
 }
 
