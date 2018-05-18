@@ -23,12 +23,12 @@ class Testing {
 		console.log(`this has been loaded ${count} times`);
 		_cookie.set('load-count', '' + (++count))
 
-		_http.get('get').subscribe(
+		_http.get('get', {test: 12, foo: 'bar', 'x&y': '___z<<>'}).subscribe(
 			resp => console.log('get::good', resp),
 			err => console.warn('get::bad', err)
 		);
 
-		_http.post('post', {foo: 'bar', test: new Date()}).subscribe(
+		_http.post('post', null, {foo: 'bar', test: 'bleh'}).subscribe(
 			resp => console.log('post::good', resp),
 			err => console.warn('post::bad', err)
 		);
