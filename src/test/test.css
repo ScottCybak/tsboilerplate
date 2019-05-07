@@ -1,9 +1,0 @@
-body, body * {
-	box-sizing: border-box;
-}
-body {
-	margin: 25px;
-	background-color: #eee;
-	padding: 25px;
-	border: 5px solid #ddd;
-}
