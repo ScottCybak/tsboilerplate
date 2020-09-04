@@ -9,8 +9,8 @@
   },
   "author": "Scott Cybak <scott.cybak@gmail.com>",
   "license": "ISC",
-  "dependencies": {
-    "rxjs": "^6.6.2"
+  "peerDependencies": {
+	"rxjs": "^6.6.2"
   },
   "devDependencies": {
     "@types/es6-shim": "^0.31.41",
